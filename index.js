@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const router = require('./routes');
-// const dbConnection = require('./database/db');
+const dbConnection = require('./database/db');
 // const cloudinary = require('cloudinary').v2;
 // const passport = require('passport');
 // const jwtStrategy = require('./passport/jwt');
@@ -35,7 +35,7 @@ app.use(process.env.API, router)
 // puerto
 const port = process.env.PORT;
 
-// dbConnection();
+dbConnection();
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
