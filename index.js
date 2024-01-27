@@ -35,6 +35,7 @@ app.use(process.env.API, router)
 // puerto
 const port = process.env.PORT;
 
+// conexion a la base de datos
 dbConnection();
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
