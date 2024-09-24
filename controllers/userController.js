@@ -18,24 +18,54 @@ const getAllUsers = async (req, res) => {
 };
 
 const registerUser = async (req, res) => {
-  const { name, lastname, email, password } = req.body;
+  // const { username, avatar } = req.body;
+  // try {
+  //   const userExists = await User.findOne({ username });
+  //   if (userExists) {
+  //     return res.status(400).json({
+  //       status: 400,
+  //       message: "User already exists",
+  //     });
+  //   }
+  //   const user = await User.create({
+  //     username,
+  //     avatar,
+  //   });
+  //   res.status(201).json({
+  //     status: 201,
+  //     message: "User created successfully",
+  //     data: user,
+  //   });
+  // } catch (error) {
+  //   res.status(500).json({
+  //     status: 500,
+  //     message: "Internal server error",
+  //     error: error.message,
+  //   });
+  // }
+};
 
+const loginUser = async (req, res) => {
+  const { username, avatar } = req.body;
   try {
-    const user = await User.findOne({ email });
+    let user = await User.findOne({ username });
 
-    if (user) {
-      return res.status(400).json({
-        status: 400,
-        message: "User already exists",
+    if (!user) {
+      user = await User.create({
+        username,
+        avatar,
+      });
+      return res.status(201).json({
+        status: 201,
+        message: "User created and logged in successfully",
+        data: user,
       });
     }
 
-    const newUser = new User({ name, lastname, email, password });
-    await newUser.save();
-    res.status(201).json({
-      status: 201,
-      message: "User created successfully",
-      data: newUser,
+    res.status(200).json({
+      status: 200,
+      message: "User logged in successfully",
+      data: user,
     });
   } catch (error) {
     res.status(500).json({
@@ -49,4 +79,5 @@ const registerUser = async (req, res) => {
 module.exports = {
   getAllUsers,
   registerUser,
+  loginUser,
 };
