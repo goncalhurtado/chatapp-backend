@@ -1,5 +1,9 @@
 const router = require("express").Router();
-const { getAllUsers, registerUser } = require("../controllers/userController");
+const {
+  getAllUsers,
+  registerUser,
+  loginUser,
+} = require("../controllers/userController");
 const {
   getConversation,
   newConversation,
@@ -13,6 +17,7 @@ const {
 
 router.post("/user", registerUser);
 router.get("/users", getAllUsers);
+router.post("/login", loginUser);
 
 // conversation
 
